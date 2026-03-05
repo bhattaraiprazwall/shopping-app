@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/home_page.dart';
+import 'package:shop_app/product_detail_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,11 +16,12 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
       title: 'Shopping App',
-      home: const HomePage(),
+      home: const ProductDetailPage(),
       theme: ThemeData(
         fontFamily: 'Lato',
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromRGBO(254, 206, 1, 1),
+          primary: const Color.fromRGBO(254, 206, 1, 1),
         ),
         inputDecorationTheme: const InputDecorationTheme(
           hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -27,6 +29,10 @@ class MyApp extends StatelessWidget {
           border: border,
           enabledBorder: border,
           focusedBorder: border,
+        ),
+        textTheme: TextTheme(
+          titleMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          bodySmall: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
       debugShowCheckedModeBanner: false,
