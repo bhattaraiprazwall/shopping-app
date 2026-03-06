@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.all(20.0),
                   child: Text(
                     "Shoes\nCollection",
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 Expanded(
