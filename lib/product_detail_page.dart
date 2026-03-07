@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
   final Map<String, Object> product;
   const ProductDetailPage({super.key, required this.product});
+
+  @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
+  // final List<int> sizes = const [9, 10, 11, 12]; //changed(marked as c)
+  // late int selectedSize; //c
+  int selectedSize=0;
+
+  @override
+  // void initState() {
+  //   //c
+  //   selectedSize = sizes[0]; //c
+  //   super.initState(); //c
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +27,13 @@ class ProductDetailPage extends StatelessWidget {
       body: Column(
         children: [
           Text(
-            product['title'] as String,
+            widget.product['title'] as String,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Image.asset(product['imageUrl'] as String),
+            child: Image.asset(widget.product['imageUrl'] as String),
           ),
           const Spacer(flex: 2),
           Container(
@@ -31,7 +47,7 @@ class ProductDetailPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '\$${product['price']}',
+                  '\$${widget.product['price']}',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(
@@ -42,12 +58,25 @@ class ProductDetailPage extends StatelessWidget {
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     //we use listView if the number of items is known , and we use ListView Builder if the no of items is unknown,
-                    itemCount: (product['sizes'] as List<int>).length,
+                    itemCount: (widget.product['sizes'] as List<int>).length,
                     itemBuilder: (context, index) {
-                      final size = (product['sizes'] as List<int>)[index];
+                      final size =
+                          (widget.product['sizes'] as List<int>)[index];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Chip(label: Text(size.toString())),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedSize = size;
+                            });
+                          },
+                          child: Chip(
+                            backgroundColor: selectedSize == size
+                                ? Theme.of(context).colorScheme.primary
+                                : null,
+                            label: Text(size.toString()),
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -59,11 +88,20 @@ class ProductDetailPage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       minimumSize: const Size(double.infinity, 50),
+                      
                     ),
 
-                    child: Text(
-                      'Add to Cart',
-                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    child: Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.shopping_cart, color: Colors.black),
+                        SizedBox(width: 8),
+                        Text(
+                          'Add to Cart',
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
                 ),
