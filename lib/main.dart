@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/cart_provider.dart';
-import 'package:shop_app/home_page.dart';
+import 'package:shop_app/providers/cart_provider.dart';
+import 'package:shop_app/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       borderRadius: BorderRadius.horizontal(left: Radius.circular(50)),
     );
     return ChangeNotifierProvider(
+      /// to return multiple provider in bigger apps we use the multiprovider and pass the list of providers
       create: (context) => CartProvider(),
       child: MaterialApp(
         title: 'Shopping App',

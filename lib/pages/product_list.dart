@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/global_variables.dart';
-import 'package:shop_app/product_card.dart';
-import 'package:shop_app/product_detail_page.dart';
+import 'package:shop_app/widgets/product_card.dart';
+import 'package:shop_app/pages/product_detail_page.dart';
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
 
@@ -21,7 +21,7 @@ class _ProductListState extends State<ProductList> {
   }
   @override
   Widget build(BuildContext context) {
-
+    final size = MediaQuery.of(context).size; //inherited model will allow us to select one feature or one property to listen to ,inherited widget listens to everything ,the entire class
     return SafeArea(
         // it ignores the top notch and avoids the bottom bar also
         child: Column(
@@ -88,7 +88,34 @@ class _ProductListState extends State<ProductList> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
+              child: size.width>650 ? GridView.builder( // if the size or screen of device is > 650 the grid view builder is shown otherwise the list view builder
+                itemCount: products.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 2 ), 
+                
+                itemBuilder:(context, index) {
+                  final product=products[index];
+                  return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            //push allows to go back but push replacement doesn't(push replacement is used in login and logged in statuses)
+                            builder: (context) {
+                              return ProductDetailPage(product: product);
+                            },
+                          ),
+                        );
+                      },
+                      child: ProductCard(
+                        title: product['title'] as String,
+                        price: product['price'] as double,
+                        image: product['imageUrl'] as String,
+                        backgroundColor: index.isEven
+                            ? Color.fromRGBO(216, 240, 253, 1)
+                            : Color.fromRGBO(245, 247, 249, 1),
+                      ),
+                    );
+                },):
+                ListView.builder(
                 itemCount: products.length,
                 itemBuilder: (context, index) {
                   final product = products[index];
@@ -114,7 +141,8 @@ class _ProductListState extends State<ProductList> {
                   );
                 },
               ),
-            ),
+            )
+
           ],
         ),
       );

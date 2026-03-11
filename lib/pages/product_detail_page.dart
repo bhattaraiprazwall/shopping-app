@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/cart_provider.dart';
+import 'package:shop_app/providers/cart_provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Map<String, Object> product;
@@ -13,12 +13,36 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   // final List<int> sizes = const [9, 10, 11, 12]; //changed(marked as c)
   // late int selectedSize; //c
-  int selectedSize=0;
-  void onTap()
-  {
-    Provider.of<CartProvider>(context,listen: false).addProduct(widget.product);
+  int selectedSize = 0;
+  void onTap() {
+    if (selectedSize != 0) {
+      Provider.of<CartProvider>(context, listen: false).addProduct({
+        'id': widget.product['id'],
+        'title': widget.product['title'],
+        'price': widget.product['price'],
+        'imageUrl': widget.product['imageUrl'],
+        'company': widget.product['company'],
+        'size': selectedSize,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Product added to cart successfully!!'),
+        duration: Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Please select a shoe size!!',
+            style: TextStyle(color: Colors.red),
+          ),
+          duration: Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
-  
 
   @override
   // void initState() {
@@ -26,7 +50,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   //   selectedSize = sizes[0]; //c
   //   super.initState(); //c
   // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +63,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Image.asset(widget.product['imageUrl'] as String),
+            child: Image.asset(widget.product['imageUrl'] as String,height: 250,),
+            
+            
           ),
           const Spacer(flex: 2),
           Container(
@@ -91,11 +116,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
-                    onPressed:onTap ,
+                    onPressed: onTap,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
-                      minimumSize: const Size(double.infinity, 50),
-                      
+                      fixedSize: const Size(350, 50),
                     ),
 
                     child: Row(
