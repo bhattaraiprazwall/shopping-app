@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Shopping App',
         home: HomePage(),
-        
+
         theme: ThemeData(
           fontFamily: 'Lato',
           colorScheme: ColorScheme.fromSeed(
@@ -29,10 +29,7 @@ class MyApp extends StatelessWidget {
             primary: const Color.fromRGBO(254, 206, 1, 1),
           ),
           appBarTheme: AppBarTheme(
-            titleTextStyle: TextStyle(
-              fontSize: 20,
-              color: Colors.black
-            ),
+            titleTextStyle: TextStyle(fontSize: 20, color: Colors.black),
           ),
           inputDecorationTheme: const InputDecorationTheme(
             hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -46,7 +43,6 @@ class MyApp extends StatelessWidget {
             titleMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             bodySmall: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          
         ),
         debugShowCheckedModeBanner: false,
       ),
