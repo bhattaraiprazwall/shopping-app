@@ -1,0 +1,29 @@
+{
+  "started_at": "2026-08-26T15:49:17.152100",
+  "finished_at": "2026-08-26T15:49:17.632824",
+  "project": {
+    "path": "/home/prajwalbhattarai/Desktop/shop_app",
+    "project_type": "flutter",
+    "build_files": [
+      "android/app/build.gradle.kts",
+      "android/build.gradle.kts"
+    ],
+    "sdk": {
+      "compile_sdk": null,
+      "target_sdk": null,
+      "min_sdk": null
+    },
+    "flutter_version": "3.47.1",
+    "gradle_version": null,
+    "agp_version": null,
+    "kotlin_version": null,
+    "java_version": "17.0.20"
+  },
+  "target_sdk": 36,
+  "changed_files": [],
+  "build_success": false,
+  "test_success": false,
+  "auto_fix_attempts": 0,
+  "warnings": [],
+  "errors": []
+}
